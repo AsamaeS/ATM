@@ -135,6 +135,7 @@ class ATM:
 
     def select_option(self, idx):
         if not self.valid_pin:
+            
             return
         self.current_option = idx
         option = self.options[idx]
