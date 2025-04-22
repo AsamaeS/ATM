@@ -158,15 +158,18 @@ class ATM:
             self.language_options()
 
     def cash_withdrawal(self):
-        self.msgArea.insert(END, "Select account:\n")
-        account = self.get_account_selection()
-        if account:
-            amount = self.get_amount_input("Enter amount to withdraw: ")
-            if amount and amount <= self.balance:
+        amount = simpledialog.askfloat("Cash Withdrawal", "Enter amount to withdraw:")
+        if amount is not None:
+            if amount <= self.balance:
                 self.balance -= amount
                 self.msgArea.insert(END, f"Withdrawal successful. Your balance is: ${self.balance:.2f}\n")
             else:
-                self.msgArea.insert(END, "Insufficient balance or invalid amount.\n")
+                self.msgArea.insert(END, "Insufficient balance.\n")
+                self.show_options()
+        else:
+            self.msgArea.insert(END, "Withdrawal cancelled.\n")
+            self.show_options()
+
 
     def deposit(self):
         self.msgArea.insert(END, "Select account:\n")
